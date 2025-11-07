@@ -25,9 +25,4 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "Hello 3D Menu App", fontSize = 24.sp)
-    }
-}
+

@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.foundation.clickable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,18 +19,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
+import androidx.compose.runtime.*
+//import kotlinx.coroutines.flow.collectAsState
+import com.example.shared.viewmodel.DishViewModel
+import com.example.shared.models.Dish
 // ✅ use multiplatform resources
 
 @Composable
-fun MenuScreen(onBack: () -> Unit = {}) {
-    val dishes = listOf(
-        "Pasta Alfredo",
-        "Grilled Chicken",
-        "Margherita Pizza",
-        "Caesar Salad",
-        "Sushi Platter",
-        "Chocolate Lava Cake"
-    )
+fun MenuScreen(onBack: () -> Unit = {}, onDishClick: (com.example.shared.models.Dish) -> Unit = {}) {
+
+    val viewModel = remember { DishViewModel() }
+    LaunchedEffect(Unit) { viewModel.fetchDishes() }
+    val dishes by viewModel.dishes.collectAsState()
 
     Column(
         modifier = Modifier
@@ -58,7 +59,9 @@ fun MenuScreen(onBack: () -> Unit = {}) {
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(12.dp)
+                        modifier = Modifier
+                            .clickable { onDishClick(dish) }
+                            .padding(12.dp)
                     ) {
                         // Temporary placeholder until drawable resource is added under commonMain/resources/drawable/
                         androidx.compose.foundation.layout.Box(
@@ -70,7 +73,7 @@ fun MenuScreen(onBack: () -> Unit = {}) {
                         Spacer(modifier = Modifier.width(16.dp))
 
                         Text(
-                            text = dish,
+                            text = dish.name,
                             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
                         )
                     }

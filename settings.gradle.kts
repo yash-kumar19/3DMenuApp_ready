@@ -26,4 +26,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "3DMenuApp_ready"
-include(":androidApp", ":shared")
+include(":androidApp", ":shared", ":webApp")

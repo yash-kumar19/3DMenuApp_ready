@@ -9,6 +9,9 @@ plugins {
 kotlin {
     androidTarget()
     jvm()
+    wasmJs {
+        browser()
+    }
 
     sourceSets {
         val commonMain by getting {
@@ -18,11 +21,10 @@ kotlin {
                 implementation(compose.material3)
                 implementation(compose.ui)
                 implementation(compose.components.resources)
-                // Ktor client (common)
-                val ktorVersion = "2.3.12"
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+                // Coroutines
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+                // Serialization
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
             }
         }
 
@@ -30,6 +32,7 @@ kotlin {
             dependencies {
                 val ktorVersion = "2.3.12"
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+                implementation("androidx.navigation:navigation-compose:2.7.7")
             }
         }
         val jvmMain by getting {
@@ -37,6 +40,11 @@ kotlin {
                 val ktorVersion = "2.3.12"
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
                 implementation("io.ktor:ktor-client-cio:$ktorVersion")
+            }
+        }
+        val wasmJsMain by getting {
+            dependencies {
+                // no platform-specific deps needed for now
             }
         }
     }
