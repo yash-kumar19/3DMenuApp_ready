@@ -6,6 +6,13 @@ plugins {
     id("org.jetbrains.compose") apply false
 }
 
+repositories {
+    google()
+    mavenCentral()
+    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/gradle")
+    maven("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
+}
 
 
 

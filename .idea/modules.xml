@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/androidApp/3DMenuApp_ready.androidApp.main.iml" filepath="$PROJECT_DIR$/.idea/modules/androidApp/3DMenuApp_ready.androidApp.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/backend/3DMenuApp_ready.backend.main.iml" filepath="$PROJECT_DIR$/.idea/modules/backend/3DMenuApp_ready.backend.main.iml" />
     </modules>
   </component>
 </project>
