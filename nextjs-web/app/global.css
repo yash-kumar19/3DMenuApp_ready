@@ -1,5 +1,99 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* your custom styles can go below */
+/* ===============================
+   THEME TOKENS (LIGHT MODE)
+   =============================== */
+@theme {
+  --color-background: oklch(0.14 0.02 260);
+  --color-foreground: oklch(0.98 0 0);
+
+  /* PRIMARY FIX — EXACT FIGMA BLUE */
+  --color-primary: #2b7fff;
+  /* TEXT ON PRIMARY BUTTON = WHITE */
+  --color-primary-foreground: #ffffff;
+
+  /* SECONDARY BUTTON (white background by default) */
+  --color-secondary: #ffffff;
+  --color-secondary-foreground: #000000;
+
+  /* Accents */
+  --color-accent: oklch(0.45 0.15 260);
+  --color-accent-foreground: oklch(0.98 0 0);
+
+  /* Muted colors */
+  --color-muted: oklch(0.25 0 0);
+  --color-muted-foreground: oklch(0.75 0 0);
+
+  /* Borders & Ring */
+  --color-border: oklch(0.28 0 0);
+  --color-ring: var(--color-primary);
+
+  /* Radius */
+  --radius: 0.625rem;
+}
+
+/* ===============================
+   DARK MODE OVERRIDES
+   =============================== */
+.dark {
+  --color-background: oklch(0.12 0.01 260);
+  --color-foreground: oklch(0.98 0 0);
+
+  /* Keep primary blue same in dark mode */
+  --color-primary: #2b7fff;
+  --color-primary-foreground: #ffffff;
+
+  /* Secondary stays white with darker hover */
+  --color-secondary: #ffffff;
+  --color-secondary-foreground: #000000;
+}
+
+/* ===============================
+   BASE LAYER
+   =============================== */
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+  }
+}
+/* --- Premium Noise Texture --- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.13;
+  pointer-events: none;
+  z-index: 999999;
+}
+
+/* Smooth fade-up effect */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.9s ease-out forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade-in for 3D Canvas */
+.fade-canvas {
+  opacity: 0;
+  animation: fadeCanvas 1.2s ease-out forwards;
+}
+
+@keyframes fadeCanvas {
+  to {
+    opacity: 1;
+  }
+}
