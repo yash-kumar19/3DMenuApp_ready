@@ -2,7 +2,7 @@
 
 import { Mail, Lock, Chrome } from "lucide-react";
 import { useState } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "@/lib/supabase/client";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
@@ -14,21 +14,48 @@ interface AuthProps {
   onLogin?: (isRestaurantOwner: boolean) => void;
 }
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? ""
-);
-
 export function Auth({ onLogin }: AuthProps) {
   const [isLogin, setIsLogin] = useState(true);
   const [userType, setUserType] = useState<"customer" | "restaurant">("customer");
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app you'd call your auth API here.
-    if (onLogin) onLogin(userType === "restaurant");
+    setError(null);
+    setLoading(true);
+
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    try {
+      if (isLogin) {
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+        if (error) throw error;
+        router.push("/dashboard");
+      } else {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/auth/callback`,
+          },
+        });
+        if (error) throw error;
+        alert("Check your email for the confirmation link!");
+      }
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   async function signInWithGoogle() {
@@ -74,22 +101,20 @@ export function Auth({ onLogin }: AuthProps) {
                 <button
                   type="button"
                   onClick={() => setUserType("customer")}
-                  className={`flex-1 py-3 px-4 rounded-xl border transition-all ${
-                    userType === "customer"
-                      ? "bg-blue-500/20 border-blue-500 text-blue-400"
-                      : "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10"
-                  }`}
+                  className={`flex-1 py-3 px-4 rounded-xl border transition-all ${userType === "customer"
+                    ? "bg-blue-500/20 border-blue-500 text-blue-400"
+                    : "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10"
+                    }`}
                 >
                   Customer
                 </button>
                 <button
                   type="button"
                   onClick={() => setUserType("restaurant")}
-                  className={`flex-1 py-3 px-4 rounded-xl border transition-all ${
-                    userType === "restaurant"
-                      ? "bg-blue-500/20 border-blue-500 text-blue-400"
-                      : "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10"
-                  }`}
+                  className={`flex-1 py-3 px-4 rounded-xl border transition-all ${userType === "restaurant"
+                    ? "bg-blue-500/20 border-blue-500 text-blue-400"
+                    : "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10"
+                    }`}
                 >
                   Restaurant Owner
                 </button>
@@ -97,6 +122,11 @@ export function Auth({ onLogin }: AuthProps) {
 
               {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-6">
+                {error && (
+                  <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
+                    {error}
+                  </div>
+                )}
                 <div>
                   <Label htmlFor="email" className="text-lg mb-3 flex items-center gap-2">
                     <Mail className="w-5 h-5 text-blue-400" />
@@ -104,6 +134,7 @@ export function Auth({ onLogin }: AuthProps) {
                   </Label>
                   <Input
                     id="email"
+                    name="email"
                     type="email"
                     required
                     placeholder="you@example.com"
@@ -118,6 +149,7 @@ export function Auth({ onLogin }: AuthProps) {
                   </Label>
                   <Input
                     id="password"
+                    name="password"
                     type="password"
                     required
                     placeholder="••••••••"
@@ -139,9 +171,10 @@ export function Auth({ onLogin }: AuthProps) {
 
                 <Button
                   type="submit"
-                  className="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white text-lg rounded-xl"
+                  disabled={loading}
+                  className="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white text-lg rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isLogin ? "Sign In" : "Create Account"}
+                  {loading ? "Processing..." : (isLogin ? "Sign In" : "Create Account")}
                 </Button>
               </form>
 

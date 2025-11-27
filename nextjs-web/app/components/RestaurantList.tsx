@@ -2,6 +2,7 @@
 
 import { Search, Star, MapPin, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
@@ -165,13 +166,13 @@ export default function RestaurantList() {
                 </div>
 
                 {/* View Menu Button */}
-                <Button
-                  onClick={() => router.push(`/restaurants/${restaurant.id}`)}
-                  className="w-full bg-blue-500/10 hover:bg-blue-500 text-blue-400 hover:text-white border border-blue-500/30 group/btn"
-                >
-                  View Menu
-                  <ChevronRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                </Button>
+                {/* View Menu Button */}
+                <Link href={`/restaurants/${restaurant.id}`} className="block w-full">
+                  <Button className="w-full bg-blue-500/10 hover:bg-blue-500 text-blue-400 hover:text-white border border-blue-500/30 group/btn">
+                    View Menu
+                    <ChevronRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
               </div>
             </div>
           ))}

@@ -8,15 +8,3 @@ export const metadata = {
 export default function MenuPage() {
   return <MenuManager />;
 }
-"use client";
-
-import Interactive3DModel from "@/components/Interactive3DModel";
-
-export default function MenuPage() {
-  return (
-    <div className="p-6">
-      <h1 className="text-4xl mb-6">Preview Dish in 3D</h1>
-      <Interactive3DModel />
-    </div>
-  );
-}

@@ -1,6 +1,5 @@
 import "./global.css";
 import type { Metadata } from "next";
-import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "3D Menu App",
@@ -14,10 +13,9 @@ export default function RootLayout({
 }) {
   return (
     // 👇 Force dark tokens by adding className="dark"
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
 
       <body>
-        <Header />
         {children}
       </body>
     </html>

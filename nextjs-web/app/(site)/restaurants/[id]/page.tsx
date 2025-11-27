@@ -1,14 +1,16 @@
 "use client";
 
+import { use } from "react";
 import RestaurantMenu from "@/components/RestaurantMenu";
 
 interface RestaurantPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default function RestaurantPage({ params }: RestaurantPageProps) {
-  const restaurantId = Number(params.id);
+  const resolvedParams = use(params);
+  const restaurantId = Number(resolvedParams.id);
   return <RestaurantMenu restaurantId={restaurantId} />;
 }

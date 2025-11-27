@@ -10,6 +10,7 @@ import {
   UtensilsCrossed,
   Calendar,
   Settings as SettingsIcon,
+  Sparkles,
 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -32,6 +33,7 @@ export default function Header({ isAdmin = false }: HeaderProps) {
   const adminLinks = [
     { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { label: "3D Menu", href: "/dashboard/menu", icon: UtensilsCrossed },
+    { label: "3D Generator", href: "/dashboard/generator", icon: Sparkles },
     { label: "Reservations", href: "/dashboard/reservations", icon: Calendar },
     { label: "Settings", href: "/dashboard/settings", icon: SettingsIcon },
   ];
@@ -39,22 +41,22 @@ export default function Header({ isAdmin = false }: HeaderProps) {
   const links = isAdmin ? adminLinks : customerLinks;
 
   const logout = () => {
-    router.replace("/auth");
+    router.replace("/login");
   };
 
   return (
-<header
-  className="
+    <header
+      className="
     sticky top-0 z-50
     backdrop-blur-xl
     bg-[#0b0f1a]/60
     border-b border-white/10
     shadow-[0_4px_20px_rgba(0,0,0,0.3)]
   "
->
+    >
 
 
-   <div className="container mx-auto px-4 lg:px-8">
+      <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
 
           {/* Logo */}
@@ -77,11 +79,10 @@ export default function Header({ isAdmin = false }: HeaderProps) {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-all ${
-                    active
-                      ? "bg-primary/15 text-primary"
-                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                  }`}
+                  className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-all ${active
+                    ? "bg-primary/15 text-primary"
+                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    }`}
                 >
                   {Icon && <Icon className="w-4 h-4" />}
                   {link.label}
@@ -129,11 +130,10 @@ export default function Header({ isAdmin = false }: HeaderProps) {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`block w-full px-4 py-3 rounded-lg flex items-center gap-2 ${
-                    active
-                      ? "bg-primary/15 text-primary"
-                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                  }`}
+                  className={`block w-full px-4 py-3 rounded-lg flex items-center gap-2 ${active
+                    ? "bg-primary/15 text-primary"
+                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    }`}
                 >
                   {Icon && <Icon className="w-4 h-4" />}
                   {link.label}
@@ -142,7 +142,7 @@ export default function Header({ isAdmin = false }: HeaderProps) {
             })}
 
             {!isAdmin && (
-              <Link href="/auth" onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
                 <Button className="w-full mt-4">Restaurant Login</Button>
               </Link>
             )}

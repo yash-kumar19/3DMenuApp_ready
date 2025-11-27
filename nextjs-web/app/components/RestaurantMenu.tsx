@@ -107,6 +107,135 @@ const restaurantData = {
       },
     ],
   },
+
+  3: {
+    name: "La Pasta Fresca",
+    coverImage:
+      "https://images.unsplash.com/photo-1739417083034-4e9118f487be",
+    rating: 4.9,
+    location: "Old Town",
+    description:
+      "Traditional Italian pasta made fresh daily using century-old family recipes.",
+    menu: [
+      {
+        id: 1,
+        name: "Spaghetti Carbonara",
+        price: 24,
+        category: "Pasta",
+        image:
+          "https://images.unsplash.com/photo-1612874742237-6526221588e3",
+        has3D: true,
+      },
+      {
+        id: 2,
+        name: "Truffle Ravioli",
+        price: 28,
+        category: "Pasta",
+        image:
+          "https://images.unsplash.com/photo-1551183053-bf91a1d81141",
+        has3D: true,
+      },
+      {
+        id: 3,
+        name: "Tiramisu",
+        price: 12,
+        category: "Dessert",
+        image:
+          "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9",
+        has3D: false,
+      },
+    ],
+  },
+
+  4: {
+    name: "Prime Steakhouse",
+    coverImage:
+      "https://images.unsplash.com/photo-1676471912422-defa79bd178c",
+    rating: 4.7,
+    location: "Harbor District",
+    description:
+      "Premium cuts of dry-aged beef served in an elegant, modern atmosphere.",
+    menu: [
+      {
+        id: 1,
+        name: "Tomahawk Ribeye",
+        price: 120,
+        category: "Steaks",
+        image:
+          "https://images.unsplash.com/photo-1546833999-b9f581a1996d",
+        has3D: true,
+      },
+      {
+        id: 2,
+        name: "Lobster Tail",
+        price: 45,
+        category: "Seafood",
+        image:
+          "https://images.unsplash.com/photo-1559339352-11d035aa65de",
+        has3D: true,
+      },
+    ],
+  },
+
+  5: {
+    name: "Velvet Desserts",
+    coverImage:
+      "https://images.unsplash.com/photo-1713025387177-ad42eb530242",
+    rating: 4.9,
+    location: "Arts Quarter",
+    description:
+      "Artisanal desserts and custom cakes that look as good as they taste.",
+    menu: [
+      {
+        id: 1,
+        name: "Berry Cheesecake",
+        price: 14,
+        category: "Cakes",
+        image:
+          "https://images.unsplash.com/photo-1567327613485-fbc7bf196198",
+        has3D: true,
+      },
+      {
+        id: 2,
+        name: "Macaron Tower",
+        price: 35,
+        category: "Specialty",
+        image:
+          "https://images.unsplash.com/photo-1569864358642-9d1684040f43",
+        has3D: true,
+      },
+    ],
+  },
+
+  6: {
+    name: "Modern Bistro",
+    coverImage:
+      "https://images.unsplash.com/photo-1685040235380-a42a129ade4e",
+    rating: 4.5,
+    location: "Tech District",
+    description:
+      "Innovative cuisine fusing global flavors with modern cooking techniques.",
+    menu: [
+      {
+        id: 1,
+        name: "Deconstructed Taco",
+        price: 22,
+        category: "Mains",
+        image:
+          "https://images.unsplash.com/photo-1565299585323-38d6b0865b47",
+        has3D: true,
+      },
+      {
+        id: 2,
+        name: "Molecular Cocktail",
+        price: 18,
+        category: "Drinks",
+        image:
+          "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b",
+        has3D: false,
+      },
+    ],
+  },
 };
 
 export default function RestaurantMenu({ restaurantId }: RestaurantMenuProps) {
